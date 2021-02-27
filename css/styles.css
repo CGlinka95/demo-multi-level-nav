@@ -52,12 +52,42 @@ ul.dropdown-menu a {
         /* Forces the text to stay on one line, cannot wrap */
         white-space: nowrap;
         text-align: center;
+        position: relative;
     }
 
-    /* Step 3: Position and hide the dropdown menu */
+    /* Step 3: Position, style, and hide the dropdown menu */
+
     /* remove the indent that we wanted for the mobile screen */
     ul.dropdown-menu {
         padding: 0;
         position: absolute;
+        background-color: #191919;
+        border-radius: 0 0 5px 5px;
+        left: 0;
+        /* Display: none is bad for screen readers, this is not an accessible menu */
+        visibility: hidden;
+        opacity: 0;
+        transition: all 0.5s ease;
     }
+
+    /* Step 4: Create a hover state that will show this menu */
+    /* When hovering over the main li, the dropdown will show */
+    ul.menu li:hover > ul {
+        /* display: block; */
+        visibility: visible;
+        opacity: 1;
+    }
+
+    /* Step 5: Add accessibility with the focus-within state on the li's which will target the anchor tags inside */
+    /* https://webaim.org/techniques/keyboard/ */
+    ul.menu li:focus-within > ul,
+    ul.menu li > ul:focus {
+        visibility: visible;
+        opacity: 1;
+        display: block;
+    }
+
+    /* Step 6: Add transition to the changing dropdown menu to show/hide it smoothly */
+    /* See dropdown-menu above */
 }
+
